@@ -1,0 +1,31 @@
+# master
+# docker run -d \
+# 	-u root \
+# 	--name=jenkins \
+# 	-e TZ=America/Denver \
+# 	-v /var/run/docker.sock:/var/run/docker.sock \
+# 	-v $(which docker):/usr/bin/docker \
+# 	-v $HOME/jenkins:/var/jenkins_home \
+# 	-p 127.0.0.1:2345:2345 \
+# 	-p 8080:8080 \
+# 	-p 50000:50000 \
+# 	 jenkins/jenkins:lts
+
+# master docker compose
+# cd ~/jenkins
+# docker-compose -f jenkins-master-docker-compose.yml up -d
+jenkins_master:
+  image: jenkins/jenkins:lts
+  container_name: jenkins
+  user: root
+  environment:
+    - TZ=America/Denver
+  restart: always
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+    - $HOME/jenkins:/var/jenkins_home
+  ports:
+    - 127.0.0.1:2345:2345
+    - 8080:8080
+    - 50000:50000

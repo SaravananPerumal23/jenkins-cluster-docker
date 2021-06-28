@@ -1,0 +1,16 @@
+# slave
+# docker run jenkins/jnlp-slave -url http://<IP_ADDRESS OF Docker Host>:8080 <secret> <jenkins_slave>
+
+# slave docker compose
+# cd ~/jnlp_slave
+# docker-compose -f jenkins-slave-docker-compose.yml up -d
+jenkins_slave:
+  image: jenkins/jnlp-slave
+  container_name: jnlp_slave
+  user: root
+  command: -url http://172.28.128.1:8080 54c94754324e4f0d6306484296485ec660cd0f225cf41c1547f4151cca8e5207 jenkins_slave
+  restart: always
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+    - $HOME/jnlp_slave:/var/jenkins_home
